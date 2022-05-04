@@ -26,10 +26,10 @@ const AddList = (props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f3f3f3',
-    padding: 20,
+    padding: 9,
     margin: 10,
     width: 300,
-    height: 150,
+    height: 80,
     justifyContent: 'center',
     borderRadius: 20,
   },
