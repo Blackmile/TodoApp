@@ -21,7 +21,6 @@ function App() {
         initialRouteName={{homeName}}
         screenOptions={({route}) => ({
           tabBarShowLabel: false,
-          swipeEnabled: false,
           tabBarIcon: ({focus, color, size}) => {
             let rn = route.name;
 
