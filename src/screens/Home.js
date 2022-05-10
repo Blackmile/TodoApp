@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native'
-import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native'
+import { Ionicons, Feather, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useState } from 'react'
 import AddList from '../components/AddList'
 import { TextInput } from 'react-native-gesture-handler';
@@ -9,24 +9,20 @@ import { TextInput } from 'react-native-gesture-handler';
 const Home = () => {
   
   const [task, setTask] = useState()
-  const [time, setTime] = useState()
-
   const [taskItems, setTaskItems] = useState([])
-  const [timeItems, setTimeItems] = useState([])
   const [modalVisible, setModalVisible] = useState(false);
   
   const handleAddTask = () => {
     setTaskItems([...taskItems, task])
-    setTimeItems([...timeItems, time])
     setModalVisible(!modalVisible)
     setTask(null)
-    setTime(null)
   }
 
-  console.log(time, task)
+  console.log(task)
 
   return (
     <View style={styles.container}>
+      <ScrollView  >
         <Modal
           animationType='fade'
           transparent={false}
@@ -44,13 +40,6 @@ const Home = () => {
                 value={task}
                 onChangeText={text => setTask(text)} 
               />
-              <TextInput 
-                placeholder='set time' 
-                maxLength={5} 
-                style={styles.modalInput}
-                value={time}
-                onChangeText={text => setTime(text)} 
-              />
               <View style={{ ...styles.modalBtn }}>
                 <TouchableOpacity>
                   <MaterialIcons name="cancel" size={24} color="black" onPress={() => setModalVisible(!modalVisible)}/>
@@ -63,19 +52,24 @@ const Home = () => {
             </View>
           </View>
         </Modal>
-      <View>
-        <Text style={styles.header}>Today's Task</Text>
-        <View style={styles.task}>
-          {taskItems.map((item, index) => {
-            return <AddList key={index} text={item} />
-          })}
-        </View>
-      </View>
         <View>
-          <TouchableOpacity style={styles.footer} onPress={() => setModalVisible(true)} >
-            <Ionicons name="add-circle" size={styles.size} color="white" />
-          </TouchableOpacity>
+          <Text style={styles.header}>Today's Task</Text>
+          <View style={styles.task}>
+            {taskItems.map((item, index) => {
+              return (
+                <View>
+                  <AddList key={index} text={item} />
+                </View>
+              )
+            })}
+          </View>
         </View>
+      </ScrollView>
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => setModalVisible(true)} >
+          <Ionicons name="add-circle" size={styles.size} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -83,14 +77,14 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#971FCC',
+    backgroundColor: '#CDC5D4',
   },
   footer: {
     position: 'absolute',
-    bottom: -300,
+    bottom: 60,
     alignSelf: 'flex-end',
   },
-  size: 84,
+  size: 64,
   header: {
     padding: 10,
     color: 'white',
@@ -134,6 +128,12 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     width: 200,
+  },
+  bin: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
   },
 })
 
