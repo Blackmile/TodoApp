@@ -2,21 +2,21 @@ import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import React from 'react';
 
-const handlePress = () => {
-  return alert('are you sure you want to delete this!?')
-} 
 
-const AddList = (props) => {
+const AddList = (props, taskItems) => {
+
+  const handleRemove = (index) => {
+    const items = [...taskItems]
+    items.splice(index, 1)
+    setTaskItems(items)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.primary} >{props.text}</Text>
-      <Text>Time: {props.time} </Text>
       <View style={styles.bin}>
         <TouchableOpacity>
-          <AntDesign name="edit" size={16} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <AntDesign name="delete" size={16} color="black" onPress={handlePress} />
+          <AntDesign name="delete" size={16} color="black" onPress={handleRemove}/>
         </TouchableOpacity>
       </View>
     </View>
@@ -25,7 +25,7 @@ const AddList = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f3f3f3',
+    backgroundColor: '#C5C9D4',
     padding: 9,
     margin: 10,
     width: 300,
@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
   },
   primary: {
     color: 'black',
-    fontSize: 24,
+    fontSize: 18,
   },
   bin: {
     flex: 1,
-    flexDirection: 'row',
+    bottom: -24,
+    flexDirection: 'column',
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
   } 
 })
 
